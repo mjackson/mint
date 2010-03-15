@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+process.mixin(require('sys'));
+var path = require('path');
+var fs = require('fs');
+
+var root = path.dirname(__dirname);
+var optparse = require(path.join(root, 'vendor', 'optparse-js', 'src', 'optparse'));
+var Mint = require(path.join(root, 'lib', 'mint')).Mint;
+
+// Switches for the parser.
+var switches = [
+    ['-o', '--output DIR',  'The directory to output the documentation to, defaults to ' + Mint.outputDir],
+    ['-h', '--help',        'Show this help message']
+];
+
+var parser = new optparse.OptionParser(switches);
+parser.banner = 'Usage: mint <input_files> [options]';
+
+var help = function() {
+    puts(parser.toString());
+    process.exit();
+};
+
+parser.on('output', function(opt, dir) {
+    Mint.outputDir = path.normalize(dir);
+});
+
+parser.on('help', help);
+
+var remainingArgs = parser.parse(process.argv);
+var files = remainingArgs.slice(2);
+
+if (files.length == 0) {
+    help();
+}
+
+Mint.go(files);
