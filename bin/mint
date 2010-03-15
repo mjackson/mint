@@ -6,7 +6,7 @@ var fs = require('fs');
 
 var root = path.dirname(__dirname);
 var optparse = require(path.join(root, 'vendor', 'optparse-js', 'src', 'optparse'));
-var Mint = require(path.join(root, 'lib', 'mint')).Mint;
+var Mint = require(path.join(root, 'lib', 'mint'));
 
 // Switches for the parser.
 var switches = [
@@ -15,7 +15,7 @@ var switches = [
 ];
 
 var parser = new optparse.OptionParser(switches);
-parser.banner = 'Usage: mint <input_files> [options]';
+parser.banner = 'Usage: mint [options] <source_files>';
 
 var help = function() {
     puts(parser.toString());
@@ -31,8 +31,6 @@ parser.on('help', help);
 var remainingArgs = parser.parse(process.argv);
 var files = remainingArgs.slice(2);
 
-if (files.length == 0) {
-    help();
-}
+if (files.length == 0) help();
 
 Mint.go(files);
