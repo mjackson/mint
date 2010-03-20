@@ -53,13 +53,7 @@ use it.</p>
 <span class="kd">var</span> <span class="nx">Mu</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="s1">&#39;vendor&#39;</span><span class="p">,</span> <span class="s1">&#39;Mu&#39;</span><span class="p">,</span> <span class="s1">&#39;lib&#39;</span><span class="p">,</span> <span class="s1">&#39;mu&#39;</span><span class="p">));</span>
 <span class="kd">var</span> <span class="nx">Markdown</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="s1">&#39;vendor&#39;</span><span class="p">,</span> <span class="s1">&#39;markdown-js&#39;</span><span class="p">,</span> <span class="s1">&#39;lib&#39;</span><span class="p">,</span> <span class="s1">&#39;markdown&#39;</span><span class="p">));</span>
 <span class="kd">var</span> <span class="nx">Mint</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">;</span>
-
-<span class="cm">/* The start/end of each Pygments highlight block. */</span>
-<span class="kd">var</span> <span class="nx">highlightStart</span> <span class="o">=</span> <span class="s1">&#39;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">highlightEnd</span> <span class="o">=</span> <span class="s1">&#39;&lt;/pre&gt;&lt;/div&gt;&#39;</span><span class="p">;</span>
-
-<span class="cm">/* The paths to all the source files being processed. */</span>
-<span class="kd">var</span> <span class="nx">allFiles</span> <span class="o">=</span> <span class="p">[];</span></pre></div>
+</pre></div>
       </td>
     </tr>
     <tr id="section-1">
@@ -67,10 +61,12 @@ use it.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-1">#</a>
         </div>
-        <h2>Properties</h2>
+        <p>The start/end of each Pygments highlight block.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre></pre></div>
+        <div class="highlight"><pre><span class="kd">var</span> <span class="nx">highlightStart</span> <span class="o">=</span> <span class="s1">&#39;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">highlightEnd</span> <span class="o">=</span> <span class="s1">&#39;&lt;/pre&gt;&lt;/div&gt;&#39;</span><span class="p">;</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-2">
@@ -78,10 +74,32 @@ use it.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-2">#</a>
         </div>
-        <p>The current version of Mint.</p>
+        <p>The paths to all the source files being processed.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span><span class="p">;</span></pre></div>
+        <div class="highlight"><pre><span class="kd">var</span> <span class="nx">allFiles</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="kd">var</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">PARSE_OCTOTHORP</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">PARSE_SEMICOLON</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nx">PARSE_SLASHSTAR</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">parseFlags</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;.as&#39;</span>       <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.c&#39;</span>        <span class="o">:</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.cc&#39;</span>       <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.coffee&#39;</span>   <span class="o">:</span> <span class="nx">PARSE_OCTOTHORP</span><span class="p">,</span>
+    <span class="s1">&#39;.conf&#39;</span>     <span class="o">:</span> <span class="nx">PARSE_OCTOTHORP</span><span class="p">,</span>
+    <span class="s1">&#39;.css&#39;</span>      <span class="o">:</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.ini&#39;</span>      <span class="o">:</span> <span class="nx">PARSE_SEMICOLON</span><span class="p">,</span>
+    <span class="s1">&#39;.java&#39;</span>     <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.js&#39;</span>       <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.m&#39;</span>        <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.php&#39;</span>      <span class="o">:</span> <span class="nx">PARSE_SLASHSLASH</span> <span class="o">|</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">,</span>
+    <span class="s1">&#39;.py&#39;</span>       <span class="o">:</span> <span class="nx">PARSE_OCTOTHORP</span><span class="p">,</span>
+    <span class="s1">&#39;.rb&#39;</span>       <span class="o">:</span> <span class="nx">PARSE_OCTOTHORP</span>
+<span class="p">};</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-3">
@@ -89,16 +107,40 @@ use it.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-3">#</a>
         </div>
-        <p>The directory to use for the output.</p>
+        <h2>Properties</h2>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span><span class="p">;</span></pre></div>
+        <div class="highlight"><pre></pre></div>
       </td>
     </tr>
     <tr id="section-4">
       <td class="docs">
         <div class="octowrap">
           <a class="octothorpe" href="#section-4">#</a>
+        </div>
+        <p>The current version of Mint.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span><span class="p">;</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-5">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-5">#</a>
+        </div>
+        <p>The directory to use for the output.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span><span class="p">;</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-6">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-6">#</a>
         </div>
         <p>The <code>templateRoot</code> and <code>templateExtension</code> properties are merely aliases
 for properties of the same name on the <a href="http://github.com/raycmorgan/Mu">Mu</a>
@@ -119,51 +161,10 @@ object.</p>
 
 <span class="nx">Mint</span><span class="p">.</span><span class="nx">__defineSetter__</span><span class="p">(</span><span class="s1">&#39;templateExtension&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">Mu</span><span class="p">.</span><span class="nx">templateExtension</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
-<span class="p">});</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-5">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-5">#</a>
-        </div>
-        <p>The <code>languages</code> property stores a hash of information we have about a given
-language, keyed by the file extension commonly used for files of code written
-in that language. Each entry starts out with a <code>name</code> and <code>symbol</code> property.
-The name is the language lexer name that <a href="http://pygments.org/">Pygments</a> will
-be able to recognize, and the symbol is the character sequence that represents
-the beginning of a single-line (also known as end-of-line) comment in that language.
-At present, Mint only supports one style of single-line comments for a given
-language. This limited degree of support greatly simplifies parsing, as it allows
-us to split on new-line characters instead of creating a separate parser for
-each new language.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">languages</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;.as&#39;</span><span class="o">:</span>      <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;as3&#39;</span><span class="p">,</span>           <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.c&#39;</span><span class="o">:</span>       <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span>             <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.cc&#39;</span><span class="o">:</span>      <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;cpp&#39;</span><span class="p">,</span>           <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.coffee&#39;</span><span class="o">:</span>  <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;coffee-script&#39;</span><span class="p">,</span> <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span>  <span class="p">},</span>
-    <span class="s1">&#39;.conf&#39;</span><span class="o">:</span>    <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>          <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span>  <span class="p">},</span>
-    <span class="s1">&#39;.ini&#39;</span><span class="o">:</span>     <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ini&#39;</span><span class="p">,</span>           <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;;&#39;</span>  <span class="p">},</span>
-    <span class="s1">&#39;.java&#39;</span><span class="o">:</span>    <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;java&#39;</span><span class="p">,</span>          <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.js&#39;</span><span class="o">:</span>      <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;javascript&#39;</span><span class="p">,</span>    <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.m&#39;</span><span class="o">:</span>       <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;objective-c&#39;</span><span class="p">,</span>   <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.php&#39;</span><span class="o">:</span>     <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;php&#39;</span><span class="p">,</span>           <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;//&#39;</span> <span class="p">},</span>
-    <span class="s1">&#39;.py&#39;</span><span class="o">:</span>      <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span>        <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span>  <span class="p">},</span>
-    <span class="s1">&#39;.rb&#39;</span><span class="o">:</span>      <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;ruby&#39;</span><span class="p">,</span>          <span class="nx">symbol</span><span class="o">:</span> <span class="s1">&#39;#&#39;</span>  <span class="p">}</span>
-<span class="p">};</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-6">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-6">#</a>
-        </div>
-        <h2>Main Functions</h2>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre></pre></div>
+<span class="p">});</span>
+
+<span class="nx">Mint</span><span class="p">.</span><span class="nx">templateRoot</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="s1">&#39;template&#39;</span><span class="p">);</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-7">
@@ -171,28 +172,10 @@ each new language.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-7">#</a>
         </div>
-        <p>The main point of entry for an external program, this function takes an
-array of files that are to be used in the documentation. By the time
-this function is called, all properties should already be set.</p>
+        <h2>Main Functions</h2>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">sourceFiles</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">allFiles</span> <span class="o">=</span> <span class="nx">sourceFiles</span><span class="p">;</span>
-
-    <span class="nx">Mint</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
-                <span class="kd">var</span> <span class="nx">sections</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">source</span><span class="p">);</span>
-                <span class="nx">Mint</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                    <span class="nx">Mint</span><span class="p">.</span><span class="nx">output</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">);</span>
-                <span class="p">});</span>
-            <span class="p">});</span>
-        <span class="p">});</span>
-
-        <span class="nx">Mint</span><span class="p">.</span><span class="nx">copyStaticFiles</span><span class="p">();</span>
-    <span class="p">});</span>
-<span class="p">};</span></pre></div>
+        <div class="highlight"><pre></pre></div>
       </td>
     </tr>
     <tr id="section-8">
@@ -200,29 +183,20 @@ this function is called, all properties should already be set.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-8">#</a>
         </div>
-        <p>We need to make sure all necessary dependencies are installed and that the
-output directory exists and is writable. Otherwise, we should fail here and
-let the user know.</p>
+        <p>We need to make sure all necessary dependencies are installed. If not, we
+should fail here and let the user know.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">setup</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">checkEnvironment</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_checkEnvironment</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;pygmentize&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">puts</span><span class="p">(</span><span class="s1">&#39;No pygmentize found. Try running `sudo easy_install pygments`&#39;</span><span class="p">);</span>
-            <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+            <span class="nx">puts</span><span class="p">(</span><span class="s1">&#39;No pygmentize found. Try `sudo easy_install pygments`&#39;</span><span class="p">);</span>
+            <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span>
-
-        <span class="nx">path</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">exists</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">exists</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="mi">0755</span><span class="p">);</span>
-            <span class="p">}</span>
-
-            <span class="nx">Mint</span><span class="p">.</span><span class="nx">templateRoot</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="s1">&#39;template&#39;</span><span class="p">);</span>
-
-            <span class="nx">callback</span><span class="p">();</span>
-        <span class="p">});</span>
+        <span class="nx">callback</span><span class="p">();</span>
     <span class="p">});</span>
-<span class="p">};</span></pre></div>
+<span class="p">}</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-9">
@@ -230,46 +204,242 @@ let the user know.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-9">#</a>
         </div>
-        <p>Here we parse the <code>source</code> code from the given file into <em>sections</em>, each of
-which consists of a comment and the code that followed it in the following
-form:</p>
-
-<pre><code>{
-    docsText: '',
-    codeText: ''
-}</code></pre>
+        <p>The main point of entry for an external program, this function takes an
+array of files that are to be used in the documentation. By the time
+this function is called, all properties should already be set.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">getLanguage</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">source</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">sections</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="kd">var</span> <span class="nx">hasCode</span><span class="p">,</span> <span class="nx">docsText</span><span class="p">,</span> <span class="nx">codeText</span><span class="p">;</span>
-    <span class="nx">hasCode</span> <span class="o">=</span> <span class="nx">docsText</span> <span class="o">=</span> <span class="nx">codeText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">save</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">docs</span><span class="p">,</span> <span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span> <span class="nx">docsText</span><span class="o">:</span> <span class="nx">docs</span><span class="p">,</span> <span class="nx">codeText</span><span class="o">:</span> <span class="nx">code</span> <span class="p">});</span>
-    <span class="p">};</span>
-    <span class="nx">lines</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">commentMatcher</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">hasCode</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">save</span><span class="p">(</span><span class="nx">docsText</span><span class="p">,</span> <span class="nx">codeText</span><span class="p">);</span>
-                <span class="nx">hasCode</span> <span class="o">=</span> <span class="nx">docsText</span> <span class="o">=</span> <span class="nx">codeText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="nx">docsText</span> <span class="o">+=</span> <span class="nx">line</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">commentMatcher</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">hasCode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-            <span class="nx">codeText</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">line</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">go</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_go</span><span class="p">(</span><span class="nx">sourceFiles</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">allFiles</span> <span class="o">=</span> <span class="nx">sourceFiles</span><span class="p">;</span>
+
+    <span class="nx">path</span><span class="p">.</span><span class="nx">exists</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">exists</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">exists</span><span class="p">)</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="mi">0755</span><span class="p">);</span>
+
+        <span class="nx">sourceFiles</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">Mint</span><span class="p">.</span><span class="nx">getLexer</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lexer</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">sections</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">parseFile</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+                <span class="nx">Mint</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">lexer</span><span class="p">,</span> <span class="nx">sections</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">Mint</span><span class="p">.</span><span class="nx">output</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+
+        <span class="nx">Mint</span><span class="p">.</span><span class="nx">copyStaticFiles</span><span class="p">();</span>
     <span class="p">});</span>
-    <span class="nx">save</span><span class="p">(</span><span class="nx">docsText</span><span class="p">,</span> <span class="nx">codeText</span><span class="p">);</span>
-    <span class="k">return</span> <span class="nx">sections</span><span class="p">;</span>
-<span class="p">};</span></pre></div>
+<span class="p">}</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-10">
       <td class="docs">
         <div class="octowrap">
           <a class="octothorpe" href="#section-10">#</a>
+        </div>
+        <p>This function simply wraps a system call to <code>pygmentize -N</code> and retrieves
+the name of the lexer that Pygments will use to parse a given file. In the
+future, this may be overridden on a per-file/project basis in case Pygments
+isn't able to correctly guess the lexer type for a given file.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">getLexer</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_getLexer</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;pygmentize -N &#39;</span> <span class="o">+</span> <span class="nx">file</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">lexer</span> <span class="o">=</span> <span class="nx">stdout</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s*$/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">lexer</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">Mint</span><span class="p">.</span><span class="nx">stripDocs</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_stripDocs</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\s*\/\//</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">stripSymbol</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="s1">&#39;\\/\\/&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\s*#/</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">stripSymbol</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\s*;/</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">stripSymbol</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="s1">&#39;;&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\s*\/\*/</span><span class="p">))</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id="section-11">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-11">#</a>
+        </div>
+        <p>Strip all preceeding stars and whitespace except for the last one.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre>        <span class="nx">doc</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s*\/[\*\s\n]*\*/</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">);</span></pre></div>
+      </td>
+    </tr>
+    <tr id="section-12">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-12">#</a>
+        </div>
+        <p>Strip all trailing stars and whitespace.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre>        <span class="nx">doc</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s*\*+\/\s*$/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">stripSymbol</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="s1">&#39;\\*&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-13">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-13">#</a>
+        </div>
+        <p>We don't recognize this comment format.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre>    <span class="k">return</span> <span class="nx">doc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">stripSymbol</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">symbol</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">indentRe</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;^\\s*&#39;</span> <span class="o">+</span> <span class="nx">symbol</span> <span class="o">+</span> <span class="s1">&#39;( *)&#39;</span><span class="p">),</span>
+        <span class="nx">lines</span> <span class="o">=</span> <span class="nx">splitLines</span><span class="p">(</span><span class="nx">doc</span><span class="p">),</span>
+        <span class="nx">stripped</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">lineRe</span><span class="p">,</span>
+        <span class="nx">match</span><span class="p">;</span>
+
+    <span class="nx">lines</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id="section-14">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-14">#</a>
+        </div>
+        <p>The indent to use for the entire block takes its queue from
+the indent of the first line. Subsequent lines in the same block
+may have a smaller indent, but if the indent is greater it should
+be preserved.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lineRe</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">match</span> <span class="o">=</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">indentRe</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">indent</span> <span class="o">=</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
+                <span class="nx">lineRe</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;^\\s*&#39;</span> <span class="o">+</span> <span class="nx">symbol</span> <span class="o">+</span> <span class="s1">&#39; {0,&#39;</span> <span class="o">+</span> <span class="nx">indent</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">lineRe</span> <span class="o">&amp;&amp;</span> <span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">lineRe</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">stripped</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">line</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">lineRe</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">stripped</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">Mint</span><span class="p">.</span><span class="nx">parseFile</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_parseFile</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">file</span><span class="p">),</span>
+        <span class="nx">flags</span> <span class="o">=</span> <span class="nx">parseFlags</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">file</span><span class="p">)];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">flags</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">flags</span> <span class="o">=</span> <span class="nx">PARSE_OCTOTHORP</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">flags</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-15">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-15">#</a>
+        </div>
+        <p>Here we parse the <code>source</code> code from the given file into <em>sections</em>, each of
+which consists of a comment and the code that followed it in the following
+form:</p>
+
+<pre><code>{
+    docs: '',
+    code: ''
+}</code></pre>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">parse</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_parse</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">flags</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">sections</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">comments</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">lines</span> <span class="o">=</span> <span class="nx">splitLines</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">commentsAlreadyContain</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="nx">index</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nx">index</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">flags</span> <span class="o">&amp;</span> <span class="nx">PARSE_SLASHSLASH</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">comments</span> <span class="o">=</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">parseSingle</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="sr">/^\s*\/\/(.|\n)*$/</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">flags</span> <span class="o">&amp;</span> <span class="nx">PARSE_OCTOTHORP</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">comments</span> <span class="o">=</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">parseSingle</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="sr">/^\s*#(.|\n)*$/</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">flags</span> <span class="o">&amp;</span> <span class="nx">PARSE_SEMICOLON</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">comments</span> <span class="o">=</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">parseSingle</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="sr">/^\s*;(.|\n)*$/</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">flags</span> <span class="o">&amp;</span> <span class="nx">PARSE_SLASHSTAR</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="o">++</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">((</span><span class="sr">/^\s*\/\*/</span><span class="p">).</span><span class="nx">test</span><span class="p">(</span><span class="nx">lines</span><span class="p">[</span><span class="nx">index</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">commentsAlreadyContain</span><span class="p">(</span><span class="nx">index</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">comments</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span>
+                <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="sr">/\*\//</span><span class="p">).</span><span class="nx">test</span><span class="p">(</span><span class="nx">lines</span><span class="p">[</span><span class="nx">index</span><span class="p">]))</span> <span class="p">{</span>
+                    <span class="nx">comments</span><span class="p">[</span><span class="nx">comments</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="nx">index</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">comments</span> <span class="o">=</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// This should never happen!</span>
+    <span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">codeLines</span><span class="p">;</span>
+    <span class="nx">comments</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">comments</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+            <span class="nx">codeLines</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nx">comments</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">codeLines</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+            <span class="nx">line</span><span class="o">:</span> <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="nx">docs</span><span class="o">:</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+            <span class="nx">code</span><span class="o">:</span> <span class="nx">codeLines</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">sections</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">parseSingle</span><span class="p">(</span><span class="nx">lines</span><span class="p">,</span> <span class="nx">regex</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">comments</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">lastCommentLine</span><span class="p">;</span>
+
+    <span class="nx">lines</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">regex</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">lastCommentLine</span> <span class="o">==</span> <span class="nx">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">comments</span><span class="p">[</span><span class="nx">comments</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">comments</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]);</span>
+            <span class="p">}</span>
+
+            <span class="nx">lastCommentLine</span> <span class="o">=</span> <span class="nx">index</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="nx">comments</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-16">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-16">#</a>
         </div>
         <p>This function expects the name of a file and its parsed <em>sections</em> (see
 <code>Mint.parse</code>). Document text is run through Markdown and code is run
@@ -278,61 +448,77 @@ have <code>docsHtml</code> and <code>codeHtml</code> attributes containing the r
 operations.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">format</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">getLanguage</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">pygments</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">createChildProcess</span><span class="p">(</span><span class="s1">&#39;pygmentize&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">]);</span>
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">format</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_format</span><span class="p">(</span><span class="nx">lexer</span><span class="p">,</span> <span class="nx">sections</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-    <span class="nx">pygments</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">createChildProcess</span><span class="p">(</span><span class="s1">&#39;pygmentize&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="nx">lexer</span><span class="p">,</span> <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">]);</span>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="nx">process</span><span class="p">.</span><span class="nx">stdio</span><span class="p">.</span><span class="nx">writeError</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
     <span class="p">});</span>
-    <span class="nx">pygments</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="nx">output</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">;</span>
     <span class="p">});</span>
-    <span class="nx">pygments</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id="section-11">
+    <tr id="section-17">
       <td class="docs">
         <div class="octowrap">
-          <a class="octothorpe" href="#section-11">#</a>
+          <a class="octothorpe" href="#section-17">#</a>
         </div>
         <p>Strip the wrapper &lt;div&gt; that Pygments inserts.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre>        <span class="nx">output</span> <span class="o">=</span> <span class="nx">output</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">highlightStart</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="nx">highlightEnd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span></pre></div>
+        <div class="highlight"><pre>        <span class="nx">output</span> <span class="o">=</span> <span class="nx">output</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">highlightStart</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="nx">highlightEnd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">output</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">),</span> <span class="nx">codeLines</span><span class="p">,</span> <span class="nx">codeHtml</span><span class="p">,</span> <span class="nx">currentLine</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nx">sections</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">section</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id="section-12">
+    <tr id="section-18">
       <td class="docs">
         <div class="octowrap">
-          <a class="octothorpe" href="#section-12">#</a>
+          <a class="octothorpe" href="#section-18">#</a>
         </div>
-        <p>Split on the divider token.</p>
+        <p>Strip all comment characters from the docs and format them using Markdown.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre>        <span class="kd">var</span> <span class="nx">fragments</span> <span class="o">=</span> <span class="nx">output</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">dividerHtml</span><span class="p">);</span>
-        <span class="nx">sections</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">section</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">section</span><span class="p">.</span><span class="nx">docsHtml</span> <span class="o">=</span> <span class="nx">Markdown</span><span class="p">.</span><span class="nx">toHTML</span><span class="p">(</span><span class="nx">section</span><span class="p">.</span><span class="nx">docsText</span><span class="p">);</span>
-            <span class="nx">section</span><span class="p">.</span><span class="nx">codeHtml</span> <span class="o">=</span> <span class="nx">highlightStart</span> <span class="o">+</span> <span class="nx">fragments</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">+</span> <span class="nx">highlightEnd</span><span class="p">;</span>
+        <div class="highlight"><pre>            <span class="nx">section</span><span class="p">.</span><span class="nx">docsHtml</span> <span class="o">=</span> <span class="nx">Markdown</span><span class="p">.</span><span class="nx">toHTML</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">stripDocs</span><span class="p">(</span><span class="nx">section</span><span class="p">.</span><span class="nx">docs</span><span class="p">));</span></pre></div>
+      </td>
+    </tr>
+    <tr id="section-19">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-19">#</a>
+        </div>
+        <p>Pygments preserves newlines when formatting code, so we can use the number
+of newline characters present in a given block to extract the formatted
+result from the HTML output. As we go, keep track of our current position
+in the output in <code>currentLine</code> so we can extract from there on subsequent
+sections.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre>            <span class="nx">codeLines</span> <span class="o">=</span> <span class="nx">substrCount</span><span class="p">(</span><span class="nx">section</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+            <span class="nx">codeHtml</span> <span class="o">=</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">currentLine</span><span class="p">,</span> <span class="nx">currentLine</span> <span class="o">+</span> <span class="nx">codeLines</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+            <span class="nx">section</span><span class="p">.</span><span class="nx">codeHtml</span> <span class="o">=</span> <span class="nx">highlightStart</span> <span class="o">+</span> <span class="nx">codeHtml</span> <span class="o">+</span> <span class="nx">highlightEnd</span><span class="p">;</span>
+            <span class="nx">currentLine</span> <span class="o">+=</span> <span class="nx">codeLines</span><span class="p">;</span>
         <span class="p">});</span>
         <span class="nx">callback</span><span class="p">();</span>
     <span class="p">});</span>
-    <span class="kd">var</span> <span class="nx">codeFragments</span> <span class="o">=</span> <span class="nx">sections</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">codeText</span> <span class="p">});</span>
-    <span class="nx">pygments</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">codeFragments</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">dividerText</span><span class="p">));</span>
-    <span class="nx">pygments</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-<span class="p">};</span></pre></div>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">sections</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">code</span> <span class="p">}).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">));</span>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
       </td>
     </tr>
-    <tr id="section-13">
+    <tr id="section-20">
       <td class="docs">
         <div class="octowrap">
-          <a class="octothorpe" href="#section-13">#</a>
+          <a class="octothorpe" href="#section-20">#</a>
         </div>
         <p>Uses the given <code>obj</code> as data for the default template. This may be expanded
 in the future to support multiple template names for a given template.</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">generateHtml</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_render</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
     <span class="nx">Mu</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">,</span> <span class="p">{},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">output</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
@@ -346,113 +532,8 @@ in the future to support multiple template names for a given template.</p>
             <span class="nx">callback</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">});</span>
-<span class="p">};</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-14">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-14">#</a>
-        </div>
-        <p>Given a file and its formatted <em>sections</em>, produce an HTML file in the output
-directory that contains the result of running the data through the template (see
-above).</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">output</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">dest</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">;</span>
-    <span class="nx">sections</span> <span class="o">=</span> <span class="nx">sections</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">apply</span><span class="p">({</span> <span class="nx">num</span><span class="o">:</span> <span class="nx">i</span> <span class="p">},</span> <span class="nx">s</span><span class="p">);</span> <span class="p">});</span>
-    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">sections</span><span class="o">:</span> <span class="nx">sections</span><span class="p">,</span> <span class="nx">files</span><span class="o">:</span> <span class="nx">allFiles</span> <span class="p">};</span>
-    <span class="nx">Mint</span><span class="p">.</span><span class="nx">generateHtml</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">html</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">};</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-15">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-15">#</a>
-        </div>
-        <h2>Utility Functions</h2>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre></pre></div>
-      </td>
-    </tr>
-    <tr id="section-16">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-16">#</a>
-        </div>
-        <p>This utility function returns a <em>language</em> hash for a given file. All language
-information is stored in <code>Mint.languages</code> and keyed by file extension. If
-we have not yet encountered a file of this type during this parse, we set
-up some regular expressions and tokens here that will assist us in parsing
-the code into relevant sections.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">getLanguage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">languages</span><span class="p">[</span><span class="nx">ext</span><span class="p">];</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-17">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-17">#</a>
-        </div>
-        <p>If we haven't seen this language before, we'll just call it <code>text</code> and assume
-it has single line comments in the octothorpe style.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">languages</span><span class="p">[</span><span class="nx">ext</span><span class="p">])</span> <span class="p">{</span>
-        <span class="nx">lang</span> <span class="o">=</span> <span class="nx">Mint</span><span class="p">.</span><span class="nx">languages</span><span class="p">[</span><span class="nx">ext</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
-        <span class="nx">lang</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;text&#39;</span><span class="p">;</span>
-        <span class="nx">lang</span><span class="p">.</span><span class="nx">symbol</span> <span class="o">=</span> <span class="s1">&#39;#&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">lang</span><span class="p">.</span><span class="nx">commentMatcher</span><span class="p">)</span> <span class="p">{</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-18">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-18">#</a>
-        </div>
-        <p>Matches lines that begin with a comment.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre>        <span class="nx">lang</span><span class="p">.</span><span class="nx">commentMatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;^\\s*&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">symbol</span> <span class="o">+</span> <span class="s1">&#39;\\s?&#39;</span><span class="p">);</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-19">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-19">#</a>
-        </div>
-        <p>The dividing token we feed into Pygments, to delimit the boundaries between
-sections.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre>        <span class="nx">lang</span><span class="p">.</span><span class="nx">dividerText</span> <span class="o">=</span> <span class="s1">&#39;\n&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">symbol</span> <span class="o">+</span> <span class="s1">&#39;DIVIDER\n&#39;</span><span class="p">;</span></pre></div>
-      </td>
-    </tr>
-    <tr id="section-20">
-      <td class="docs">
-        <div class="octowrap">
-          <a class="octothorpe" href="#section-20">#</a>
-        </div>
-        <p>The mirror of <code>dividerText</code> that we expect Pygments to return. We can split
-on this to recover the original sections.</p>
-      </td>
-      <td class="code">
-        <div class="highlight"><pre>        <span class="nx">lang</span><span class="p">.</span><span class="nx">dividerHtml</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;\\n*&lt;span class=&quot;c1&quot;&gt;&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">symbol</span> <span class="o">+</span> <span class="s1">&#39;DIVIDER&lt;\\/span&gt;\\n*&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="nx">lang</span><span class="p">;</span>
-<span class="p">};</span></pre></div>
+<span class="p">}</span>
+</pre></div>
       </td>
     </tr>
     <tr id="section-21">
@@ -460,13 +541,36 @@ on this to recover the original sections.</p>
         <div class="octowrap">
           <a class="octothorpe" href="#section-21">#</a>
         </div>
-        <p>This utility function copies all JavaScript and CSS files that are part of the
-template to the output directory, thus preserving any links to these files in
-the template code.</p>
+        <p>Given a file and its formatted <em>sections</em>, produce an HTML file in the output
+directory that contains the result of running the data through the template (see
+above).</p>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">copyStaticFiles</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">output</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_output</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">sections</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">dest</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">outputDir</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">file</span><span class="p">)))</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">;</span>
+    <span class="nx">sections</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="p">{</span> <span class="nx">s</span><span class="p">.</span><span class="nx">num</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="nx">title</span><span class="p">,</span> <span class="nx">sections</span><span class="o">:</span> <span class="nx">sections</span><span class="p">,</span> <span class="nx">files</span><span class="o">:</span> <span class="nx">allFiles</span> <span class="p">};</span>
+    <span class="nx">Mint</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">html</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+      </td>
+    </tr>
+    <tr id="section-22">
+      <td class="docs">
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-22">#</a>
+        </div>
+        <p>This function copies all JavaScript and CSS files that are part of the
+template to the output directory, thus preserving any links to these files
+in the template code.</p>
+      </td>
+      <td class="code">
+        <div class="highlight"><pre><span class="nx">Mint</span><span class="p">.</span><span class="nx">copyStaticFiles</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">Mint_copyStaticFiles</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">Mint</span><span class="p">.</span><span class="nx">templateRoot</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
         <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">ext</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
             <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span> <span class="o">==</span> <span class="s1">&#39;.css&#39;</span> <span class="o">||</span> <span class="nx">ext</span> <span class="o">==</span> <span class="s1">&#39;.js&#39;</span><span class="p">)</span> <span class="p">{</span>
@@ -476,26 +580,29 @@ the template code.</p>
             <span class="p">}</span>
         <span class="p">});</span>
     <span class="p">});</span>
-<span class="p">};</span></pre></div>
+<span class="p">}</span>
+</pre></div>
       </td>
     </tr>
-    <tr id="section-22">
+    <tr id="section-23">
       <td class="docs">
         <div class="octowrap">
-          <a class="octothorpe" href="#section-22">#</a>
+          <a class="octothorpe" href="#section-23">#</a>
         </div>
-        <p>A small utility function that applies all properties of the <code>ext</code> object to the
-<code>base</code> object. Returns the modified base.</p>
+        <h2>Utility Functions</h2>
       </td>
       <td class="code">
-        <div class="highlight"><pre><span class="kd">var</span> <span class="nx">apply</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">ext</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">ext</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">ext</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span> <span class="nx">base</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ext</span><span class="p">[</span><span class="nx">p</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">base</span><span class="p">;</span>
-<span class="p">};</span>
+        <div class="highlight"><pre>
+<span class="kd">function</span> <span class="nx">splitLines</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">lines</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">line</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">;</span>
+    <span class="p">}).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">lines</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="p">}</span>
 
-</pre></div>
+<span class="kd">function</span> <span class="nx">substrCount</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">substr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">substr</span><span class="p">).</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></pre></div>
       </td>
     </tr>
   </table>
