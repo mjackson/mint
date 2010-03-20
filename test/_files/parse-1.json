@@ -1,0 +1,7 @@
+[
+    {
+        "line": 0,
+        "docs": "// This is a comment.\n",
+        "code": "var a = 1;\n"
+    }
+]
