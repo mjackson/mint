@@ -33,4 +33,6 @@ var files = remainingArgs.slice(2);
 
 if (files.length == 0) help();
 
-Mint.go(files);
+Mint.checkEnvironment(function() {
+    Mint.go(files);
+});
