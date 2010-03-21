@@ -4,7 +4,7 @@ process.mixin(require('sys'));
 var path = require('path');
 var fs = require('fs');
 
-var root = path.dirname(__dirname);
+var root = path.dirname(path.dirname(fs.realpathSync(__filename)));
 var optparse = require(path.join(root, 'vendor', 'optparse-js', 'src', 'optparse'));
 var Mint = require(path.join(root, 'lib', 'mint'));
 
