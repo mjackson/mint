@@ -29,7 +29,7 @@ Then set up a symlink to the Mint executable from somewhere in your $PATH.
 
 ### Usage
 
-Invoke the `mint` executable from the command line with a list of files you'd
+Invoke the `mint` program from the command line with a list of files you would
 like to generate documentation for. To specify the location for the output,
 use the `-o` flag. For example, to generate documentation for all JavaScript
 files in the `lib` directory and put the output in the `doc` directory, you
