@@ -1,46 +1,80 @@
-**Mint** is a small, fast documentation generator for
-[literate-style programming](http://en.wikipedia.org/wiki/Literate_programming)
-that produces HTML files from your source code. In literate programming, the emphasis is
-placed on writing clear documentation in ordinary human language instead of writing terse
-half-sentences. The code is considered merely an artifact of the documentation. Thus, in Mint
-the documentation is displayed most prominently, right alongside the fragments of code to
-which each section pertains.
+* Mint *
 
-Mint was inspired by (and borrows heavily from) [Docco](http://github.com/jashkenas/docco),
-with the main difference being that Mint is written in JavaScript instead of
-[CoffeeScript](http://github.com/jashkenas/coffee-script). Code comments are written in
-[Markdown](http://daringfireball.net/projects/markdown/) and templates use
-[Mustache](http://github.com/defunkt/mustache/).
+Mint is a small, fast documentation generator for literate-style programming
+that produces HTML files from your source code. In literate programming, the
+emphasis is placed on writing clear documentation in ordinary human language
+instead of writing terse half-sentences. The code is considered merely an
+artifact of the documentation. Thus, in Mint the documentation is displayed
+most prominently, right alongside the fragments of code to which each section
+pertains.
+
+Mint was inspired by (and borrows heavily from) Docco, the original quick-n-dirty
+documentation generator by Jeremy Ashkenas, with the main difference being that
+Mint is written in JavaScript instead of CoffeeScript. Code comments are written
+in Markdown and templates use Mustache.
 
 ### Installation
 
-To install Mint, download the [tarball](http://github.com/mjijackson/mint/tarball/master) or clone
-the repository.
+Mint has several dependencies, including Node.js and Pygments. Please consult
+the websites of these projects for instructions on how to install them.
+
+Once you've done that, get a copy of the code either by downloading the tarball
+or cloning the source repository.
 
     $ git clone git://github.com/mjijackson/mint.git
 
+Then set up a symlink to the Mint executable from somewhere in your $PATH.
+
+    $ ln -s /path/to/bin/mint /usr/local/bin/mint
+
 ### Usage
 
-    $ bin/mint --help
-    $ bin/mint -o docs lib/*.js
+Invoke the `mint` executable from the command line with a list of files you'd
+like to generate documentation for. To specify the location for the output,
+use the `-o` flag. For example, to generate documentation for all JavaScript
+files in the `lib` directory and put the output in the `doc` directory, you
+would do the following:
+
+    $ mint -o doc lib/*.js
+
+For more information, try `--help`.
+
+    $ mint --help
+
+Use the `node` program to run the Mint test suite.
+
+    $ node test/mint.js
 
 ### Credits
 
 Mint uses the following libraries to get the job done:
 
-  - [Node.js](http://nodejs.org/)
-  - [Pygments](http://pygments.org/)
-  - [markdown-js](http://github.com/evilstreak/markdown-js)
-  - [Mu](http://github.com/raycmorgan/Mu)
-  - [optparse-js](http://github.com/jfd/optparse-js)
-
-### Requirements
-
-Mint runs on [Node.js](http://nodejs.org/) and uses [Pygments](http://pygments.org/) to
-highlight source code, so you'll need both of these installed on your system in order to
-use it.
+  - Node.js (http://nodejs.org/)
+  - Pygments (http://pygments.org/)
+  - markdown-js (http://github.com/evilstreak/markdown-js)
+  - optparse-js (http://github.com/jfd/optparse-js)
+  - Mu (http://github.com/raycmorgan/Mu)
 
 ### License
 
-Mint is released under the terms of the MIT license. Please read the LICENSE file for more
-information.
+MIT License
+
+Copyright 2010 Michael Jackson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
