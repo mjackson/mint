@@ -1,0 +1,9 @@
+[submodule "vendor/optparse-js"]
+	path = vendor/optparse-js
+	url = http://github.com/jfd/optparse-js.git
+[submodule "vendor/markdown-js"]
+	path = vendor/markdown-js
+	url = http://github.com/evilstreak/markdown-js.git
+[submodule "vendor/Mu"]
+	path = vendor/Mu
+	url = http://github.com/raycmorgan/Mu.git
