@@ -1,24 +1,25 @@
 #!/usr/bin/env node
 
-process.mixin(require('sys'));
+var sys = require('sys');
 var path = require('path');
 var fs = require('fs');
 
 var root = path.dirname(path.dirname(fs.realpathSync(__filename)));
-var optparse = require(path.join(root, 'vendor', 'optparse-js', 'src', 'optparse'));
+var optparse = require(path.join(root, 'vendor', 'optparse-js', 'lib', 'optparse'));
 var Mint = require(path.join(root, 'lib', 'mint'));
 
 // Switches for the parser.
 var switches = [
-    ['-o', '--output DIR',  'The directory to output the documentation to, defaults to ' + Mint.outputDir],
-    ['-h', '--help',        'Show this help message']
+    ['-o', '--output DIR',  'The output directory, defaults to ' + Mint.outputDir],
+    ['-h', '--help',        'Show this help message'],
+    ['-v', '--version',     'Print the current version number of Mint']
 ];
 
 var parser = new optparse.OptionParser(switches);
 parser.banner = 'Usage: mint [options] <source_files>';
 
 var help = function() {
-    puts(parser.toString());
+    sys.puts(parser.toString());
     process.exit();
 };
 
@@ -27,6 +28,11 @@ parser.on('output', function(opt, dir) {
 });
 
 parser.on('help', help);
+
+parser.on('version', function(opt) {
+    sys.puts('Mint, version ' + Mint.version);
+    process.exit();
+});
 
 var remainingArgs = parser.parse(process.argv);
 var files = remainingArgs.slice(2);
