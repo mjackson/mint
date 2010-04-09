@@ -9,9 +9,7 @@
 </head>
 
 <body>
-<div id="container">
-  <div id="background"></div>
-  <table cellspacing="0" cellpadding="0">
+<table cellspacing="0" cellpadding="0">
   <thead>
     <tr>
       <th class="docs"><h1>{{title}}</h1></th>
@@ -23,7 +21,7 @@
     <tr id="section-{{num}}">
       <td class="docs">
         <div class="octowrap">
-          <a class="octothorpe" href="#section-{{num}}">#</a>
+          <a class="octothorp" href="#section-{{num}}">#</a>
         </div>
         {{{docsHtml}}}
       </td>
@@ -32,8 +30,8 @@
       </td>
     </tr>
     {{/sections}}
-  </table>
-</div>
+  </tbody>
+</table>
 </body>
 
 </html>

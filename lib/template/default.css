@@ -1,125 +1,88 @@
-/*--------------------- Layout and Typography ----------------------------*/
+/* Reset */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,
+big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,
+dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+
+/* Layout and Typography */
 body {
-  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
   font-size: 16px;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
   line-height: 24px;
   color: #252519;
-  margin: 0; padding: 0;
 }
-a {
+a, a:visited {
   color: #261a3b;
 }
-  a:visited {
-    color: #261a3b;
-  }
-p {
-  margin: 0 0 15px 0;
+p, pre, blockquote, ul, ol, dl, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 24px;
 }
-h1, h2, h3, h4, h5, h6 {
-  margin: 40px 0 15px 0;
+pre, tt, code {
+  font-size: 12px;
+  font-family: Menlo, 'Lucida Console', Consolas, Monaco, monospace;
 }
-  h3, h4, h5, h6 {
-    margin-top: 20px;
-  }
-#container {
+h1 { font-size: 36px; line-height: 36px; }
+h2 { font-size: 24px; }
+h3 { font-size: 18px; }
+table {
+  width: 100%;
+}
+th {
+  text-align: left;
+}
+th, td {
+  vertical-align: top;
+}
+td.docs, th.docs {
+  padding: 0 24px 0 48px;
+  width: 480px;
+  min-width: 480px;
+}
+th.docs, th.code {
+  padding-top: 48px;
+}
+.docs pre, .docs blockquote {
+  border-left: 2px solid #e5e5ee;
+  padding-left: 12px;
+}
+.docs p tt, .docs p code {
+  background: #f8f8ff;
+  border: 1px solid #dedede;
+  font-size: 12px;
+  padding: 0 0.2em;
+}
+.octowrap {
   position: relative;
 }
-#background {
-  position: fixed;
-  top: 0; left: 580px; right: 0; bottom: 0;
+.octothorp {
+  font: 12px Arial;
+  text-decoration: none;
+  color: #454545;
+  position: absolute;
+  top: 3px;
+  left: -20px;
+  padding: 1px 2px;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity 0.2s linear;
+}
+td.docs:hover .octothorp {
+  opacity: 1;
+}
+td.code, th.code {
+  padding: 0 14px 0 48px;
   background: #f5f5ff;
   border-left: 1px solid #e5e5ee;
-  z-index: -1;
 }
-#jump_to, #jump_page {
-  background: white;
-  -webkit-box-shadow: 0 0 25px #777; -moz-box-shadow: 0 0 25px #777;
-  -webkit-border-bottom-left-radius: 5px; -moz-border-radius-bottomleft: 5px;
-  font: 10px Arial;
-  text-transform: uppercase;
-  cursor: pointer;
-  text-align: right;
-}
-#jump_to, #jump_wrapper {
-  position: fixed;
-  right: 0; top: 0;
-  padding: 5px 10px;
-}
-  #jump_wrapper {
-    padding: 0;
-    display: none;
-  }
-    #jump_to:hover #jump_wrapper {
-      display: block;
-    }
-    #jump_page {
-      padding: 5px 0 3px;
-      margin: 0 0 25px 25px;
-    }
-      #jump_page .source {
-        display: block;
-        padding: 5px 10px;
-        text-decoration: none;
-        border-top: 1px solid #eee;
-      }
-        #jump_page .source:hover {
-          background: #f5f5ff;
-        }
-        #jump_page .source:first-child {
-        }
-table td {
-  border: 0;
-  outline: 0;
-}
-  td.docs, th.docs {
-    max-width: 500px;
-    min-width: 500px;
-    min-height: 5px;
-    padding: 10px 25px 1px 50px;
-    vertical-align: top;
-    text-align: left;
-  }
-    .docs pre {
-      margin: 15px 0 15px;
-      padding-left: 15px;
-    }
-    .docs p tt, .docs p code {
-      background: #f8f8ff;
-      border: 1px solid #dedede;
-      font-size: 12px;
-      padding: 0 0.2em;
-    }
-    .octowrap {
-      position: relative;
-    }
-      .octothorpe {
-        font: 12px Arial;
-        text-decoration: none;
-        color: #454545;
-        position: absolute;
-        top: 3px; left: -20px;
-        padding: 1px 2px;
-        opacity: 0;
-        -webkit-transition: opacity 0.2s linear;
-      }
-        td.docs:hover .octothorpe {
-          opacity: 1;
-        }
-  td.code, th.code {
-    padding: 14px 15px 16px 50px;
-    width: 100%;
-    vertical-align: top;
-    background: #f5f5ff;
-    border-left: 1px solid #e5e5ee;
-  }
-    pre, tt, code {
-      font-size: 12px; line-height: 18px;
-      font-family: Monaco, Consolas, "Lucida Console", monospace;
-      margin: 0; padding: 0;
-    }
 
-
-/*---------------------- Syntax Highlighting -----------------------------*/
+/* Syntax */
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
 span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
 body .hll { background-color: #ffffcc }
