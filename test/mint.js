@@ -1,5 +1,4 @@
-process.mixin(require('sys'));
-
+var sys = require('sys');
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
@@ -14,7 +13,7 @@ function testFile(name) {
 }
 
 function onFinish() {
-    puts('Done!');
+    sys.puts('Done!');
 }
 
 function onError(error) {
@@ -59,7 +58,7 @@ function testStripDocs(callback, errback) {
     var delim = '\n\n', source, docs, expected;
 
     files.forEach(function(file) {
-        puts('Testing Mint.stripDocs on ' + file);
+        sys.puts('Testing Mint.stripDocs on ' + file);
         // Each source file should contain a comment as it may appear
         // in the source code, two new line characters, and then the
         // expected result. Strip the trailing newline from the expected
@@ -80,7 +79,7 @@ function testParse(callback, errback) {
     };
 
     for (var file in files) {
-        puts('Testing Mint.parse on ' + file);
+        sys.puts('Testing Mint.parse on ' + file);
         var expected = JSON.parse(fs.readFileSync(testFile(files[file])));
         var sections = Mint.parseFile(testFile(file));
         assert.deepEqual(expected, sections);
@@ -92,10 +91,10 @@ function testParse(callback, errback) {
 /* Check the environment and kick off the tests. */
 
 Mint.checkEnvironment(function() {
-    var tests = syncTests(
+    var testRunner = syncTests(
         testStripDocs,
         testParse
     );
 
-    tests();
+    testRunner();
 });
