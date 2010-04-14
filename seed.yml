@@ -1,0 +1,6 @@
+---
+  name: Mint
+  description: Doc parser
+  tags: doc documentation parser pygments markdown
+  build: sudo make install
+  version: 0.3.0
