@@ -15,9 +15,9 @@ var switches = [
     ['-v', '--version',     'Print the current version number of Mint']
 ];
 
-var version = 'Mint, version ' + Mint.version;
 var parser = new optparse.OptionParser(switches);
-parser.banner = [version, 'Usage: mint [options] <source_files>'].join('\n');
+parser.banner = 'Mint, version ' + Mint.version +
+    '\nUsage: mint [options] <source_files>';
 
 var help = function() {
     sys.puts(parser.toString());
@@ -31,7 +31,7 @@ parser.on('output', function(opt, dir) {
 parser.on('help', help);
 
 parser.on('version', function(opt) {
-    sys.puts(version);
+    sys.puts(Mint.version);
     process.exit();
 });
 
