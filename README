@@ -9,23 +9,30 @@ most prominently, right alongside the fragments of code to which each section
 pertains.
 
 Mint was inspired by (and borrows heavily from) Docco, the original quick-n-dirty
-documentation generator by Jeremy Ashkenas, with the main difference being that
-Mint is written in JavaScript instead of CoffeeScript. Code comments are written
-in Markdown and templates use Mustache.
+literate documentation generator by Jeremy Ashkenas. However, Mint is written
+in JavaScript instead of CoffeeScript. Code comments are written in Markdown
+and templates use Mustache.
 
 ### Installation
 
 Mint has several dependencies, including Node.js and Pygments. Please consult
 the websites of these projects for instructions on how to install them.
 
-Once you've done that, get a copy of the code either by downloading the tarball
-or cloning the source repository.
+Once you have Node and Pygments installed, simply clone the repository and run
+a `make && make install` from the project root.
 
     $ git clone git://github.com/mjijackson/mint.git
+    $ cd mint
+    $ make && make install
 
-Then set up a symlink to the Mint executable from somewhere in your $PATH.
+By default the Mint installer uses the `/usr/local` prefix. You can however
+change this prefix to point to a different place on your system.
 
-    $ ln -s /path/to/bin/mint /usr/local/bin/mint
+    $ sudo make install prefix=/usr
+
+Uninstalling Mint is just as easy.
+
+    $ make uninstall
 
 ### Usage
 
@@ -52,8 +59,8 @@ Mint uses the following libraries to get the job done:
   - Node.js (http://nodejs.org/)
   - Pygments (http://pygments.org/)
   - markdown-js (http://github.com/evilstreak/markdown-js)
-  - optparse-js (http://github.com/jfd/optparse-js)
   - Mu (http://github.com/raycmorgan/Mu)
+  - optparse-js (http://github.com/jfd/optparse-js)
 
 ### License
 
