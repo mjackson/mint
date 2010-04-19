@@ -1,6 +1,6 @@
 prefix = /usr/local
-DEPS = vendor/markdown-js vendor/Mu vendor/optparse-js
 DEST = $(prefix)/bin/mint
+DEPS = vendor/markdown-js vendor/Mu vendor/optparse-js
 
 .PHONY: init install uninstall
 
